@@ -38,8 +38,8 @@ jobs:
         run: |
           git add "package.json"
           git add "package-lock.json"
-          git commit -m "release ${{ inputs.version }}"
-          git tag ${{ inputs.version }}
+          git commit -m "release actions-${{ inputs.version }}"
+          git tag actions/${{ inputs.version }}
 
       - run: cat package.json && cat package-lock.json
         working-directory: packages/actions
@@ -82,8 +82,8 @@ jobs:
         run: |
           git add "package.json"
           git add "package-lock.json"
-          git commit -m "release ${{ inputs.version }}"
-          git tag ${{ inputs.version }}
+          git commit -m "release actions-test-${{ inputs.version }}"
+          git tag actions-test/${{ inputs.version }}
       - run: cat package.json && cat package-lock.json
         working-directory: packages/actions-test
 

@@ -44,6 +44,8 @@ jobs:
       - run: cat package.json && cat package-lock.json
         working-directory: packages/actions
       
+      - name: push
+        run: git push origin ${{ inputs.version }}
       # - name: publish release
       #   working-directory: packages/actions
       #   run: npm publish
@@ -84,6 +86,9 @@ jobs:
           git tag ${{ inputs.version }}
       - run: cat package.json && cat package-lock.json
         working-directory: packages/actions-test
+
+      - name: push
+        run: git push origin ${{ inputs.version }}
         # - name: publish release
       #   working-directory: packages/actions-test
       #   run: npm publish

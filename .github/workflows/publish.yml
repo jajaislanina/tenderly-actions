@@ -27,6 +27,7 @@ jobs:
         run: npm version ${{ inputs.version }}
 
       - name: install 
+        working-directory: packages/actions
         run: npm install
 
       - run: npm run build
@@ -41,6 +42,7 @@ jobs:
           git tag ${{ inputs.version }}
 
       - run: cat package.json && package-lock.json
+        working-directory: packages/actions
       
       # - name: publish release
       #   working-directory: packages/actions
@@ -67,6 +69,7 @@ jobs:
         run: npm version ${{ inputs.version }}
 
       - name: install 
+        working-directory: packages/actions
         run: npm update @tenderly/actions && npm install
 
       - run: npm run build
@@ -80,7 +83,8 @@ jobs:
           git commit -m "release ${{ inputs.version }}"
           git tag ${{ inputs.version }}
       - run: cat package.json && package-lock.json
-      # - name: publish release
+        working-directory: packages/actions
+        # - name: publish release
       #   working-directory: packages/actions-test
       #   run: npm publish
       #   env:

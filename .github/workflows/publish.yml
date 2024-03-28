@@ -40,6 +40,8 @@ jobs:
           git commit -m "release ${{ inputs.version }}"
           git tag ${{ inputs.version }}
 
+      - run: cat package.json && package-lock.json
+      
       # - name: publish release
       #   working-directory: packages/actions
       #   run: npm publish
@@ -77,7 +79,7 @@ jobs:
           git add "package-lock.json"
           git commit -m "release ${{ inputs.version }}"
           git tag ${{ inputs.version }}
-
+      - run: cat package.json && package-lock.json
       # - name: publish release
       #   working-directory: packages/actions-test
       #   run: npm publish

@@ -17,6 +17,7 @@ jobs:
         with:
           version: ${{ inputs.version }}
   release-actions:
+    needs: validate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

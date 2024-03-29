@@ -82,6 +82,7 @@ jobs:
         working-directory: packages/actions-test
         run: |
           VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
           git add "package.json"
           git add "package-lock.json"
           git commit -m "release actions-test-$VERSION"

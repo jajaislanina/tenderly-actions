@@ -2,7 +2,8 @@ name: Actions Package Release
 
 on:
   push:
-    branches: master
+    branches: 
+      - master
 
 
 jobs:

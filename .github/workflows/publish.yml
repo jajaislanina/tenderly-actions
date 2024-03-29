@@ -9,6 +9,8 @@ on:
 jobs:
   release-actions:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.commit.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,10 +33,13 @@ jobs:
         working-directory: packages/actions
 
       - name: commit
+        id: commit
         working-directory: packages/actions
         run: |
           VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
           git add "package.json"
           git add "package-lock.json"
           git commit -m "release actions-$VERSION"
@@ -54,6 +59,8 @@ jobs:
   release-actions-test:
     needs: release-actions
     runs-on: ubuntu-latest
+    env:
+      VERSION: ${{needs.release-actions.outputs.version}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -69,7 +76,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: bump version
         working-directory: packages/actions-test
-        run:  npm version patch
+        run:  npm version $VERSION
 
       - name: install 
         working-directory: packages/actions-test
@@ -81,8 +88,6 @@ jobs:
       - name: commit
         working-directory: packages/actions-test
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
           git add "package.json"
           git add "package-lock.json"
           git commit -m "release actions-test-$VERSION"
